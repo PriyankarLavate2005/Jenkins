@@ -1,9 +1,30 @@
 pipeline {
     agent any
-    stages{
-        stage('buld'){
-            steps{
-                bat 'hello world'
+
+    stages {
+        stage('Clone repository') {
+            steps {
+                script {
+                    try {
+                        git branch: 'master', url: 'https://github.com/PriyankarLavate2005/Jenkins.git'
+                    } catch (Exception e) {
+                        error "Failed to clone repository: ${e.message}"
+                    }
+                }
+            }
+        }
+        stage('Load Jenkinsfile') {
+            steps {
+                dir('Jenkins') {  // Change this path if your Jenkinsfile is in a subdirectory
+                    script {
+                        if (fileExists('Jenkinsfile')) {
+                            echo 'Jenkinsfile found'
+                            load 'Jenkinsfile'
+                        } else {
+                            error 'Jenkinsfile not found'
+                        }
+                    }
+                }
             }
         }
     }
