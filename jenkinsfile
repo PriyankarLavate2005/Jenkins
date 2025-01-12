@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages{
+        stage('buld'){
+            steps{
+                bat 'hello world'
+            }
+        }
+    }
+}
