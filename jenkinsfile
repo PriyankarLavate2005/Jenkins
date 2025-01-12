@@ -1,19 +1,25 @@
 pipeline {
     agent any
 
-    environment {
-        GITHUB_TOKEN = credentials('TokenPython') // Referencing the stored credential
-    }
-
     stages {
-        stage('Clone Repository') {
+        stage('Build') {
             steps {
                 script {
-                    git url: 'https://github.com/PriyankarLavate2005/Python.git', credentialsId: 'TokenPython' // Using the credential ID
+                    // Your build commands go here
+                    bat 'echo Building...'
                 }
-                echo 'Git cloned successfully'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Your test commands go here
+                    bat 'echo Running tests...'
+                }
             }
         }
     }
 }
+
 
